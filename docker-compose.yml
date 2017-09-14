@@ -7,9 +7,9 @@ services:
     environment:
       - POSTGRES_DB=aggregate
       - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=crazydb
+      - POSTGRES_PASSWORD=docker
     ports:
-      - "5432:5432"
+      - "5433:5432"
   aggregate:
     image: tomcat:8.0
     volumes:
@@ -19,4 +19,4 @@ services:
     links:
       - aggregatedb
     ports:
-      - "8080:8080"
+      - "8081:8080"
