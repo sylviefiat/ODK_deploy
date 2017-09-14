@@ -1,5 +1,6 @@
 ODK.run
 index.html
+aggregate_data/data/*
 aggregate_data/logs/*
 aggregate_data/webapps/*
 aggregatedb_data/*
