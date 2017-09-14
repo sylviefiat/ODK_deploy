@@ -1,0 +1,22 @@
+version: '2'
+services:
+  aggregatedb:
+    image: mdillon/postgis
+    volumes:
+      - ./aggregatedb_data/postgresql:/etc/postgresql
+    environment:
+      - POSTGRES_DB=aggregate
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=crazydb
+    ports:
+      - "5432:5432"
+  aggregate:
+    image: tomcat:8.0
+    volumes:
+      - ./aggregate_data/webapps:/usr/local/tomcat/webapps
+      - ./aggregate_data/logs:/usr/local/tomcat/logs
+#      - ./aggregate_data/data:/data
+    links:
+      - aggregatedb
+    ports:
+      - "8080:8080"
