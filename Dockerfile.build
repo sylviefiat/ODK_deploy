@@ -1,0 +1,19 @@
+from tomcat:8.0
+MAINTAINER sylviefiat <sylvie.fiat@ird.fr>
+
+WORKDIR /tmp
+COPY ./input.txt /tmp/input.txt
+
+RUN wget https://opendatakit.org/download/4456/
+RUN mv index.html ODK.run && \
+    chmod +x ODK.run
+
+RUN printf '\n\n\n\n\n\n\n\n\ny\n/tmp/aggregate\n3\nn\n\n1\nn\n\nhttp://10.41.2.232\nn\n\naggregatedb\n\ndocker\ndocker\n\n\naggregate\nadmin\nY\nY\n' | ./ODK.run
+RUN find -name "*\ *" -type d | rename 's/ /_/g' && find / -name aggregate
+RUN mv /tmp/aggregate/ODK_Aggregate/ODKAggregate.war /usr/local/tomcat/webapps/ && \
+    mv /tmp/aggregate/ODK_Aggregate/create_db_and_user.sql /tmp/
+
+WORKDIR /usr/local/tomcat/
+
+EXPOSE 8080
+CMD ["catalina.sh", "run"]

@@ -2,21 +2,21 @@ version: '2'
 services:
   aggregatedb:
     image: mdillon/postgis
-    volumes:
-      - ./aggregatedb_data/postgresql:/etc/postgresql
+#    volumes:
+#      - ./aggregatedb_data/postgresql:/etc/postgresql
     environment:
       - POSTGRES_DB=aggregate
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=docker
     ports:
-      - "5433:5432"
+      - "5432:5432"
   aggregate:
-    image: tomcat:8.0
+    image: odk_deploy 
     volumes:
       - ./aggregate_data/webapps:/usr/local/tomcat/webapps
       - ./aggregate_data/logs:/usr/local/tomcat/logs
-#      - ./aggregate_data/data:/data
+      - ./aggregatedb_data/tmp:/tmp
     links:
       - aggregatedb
     ports:
-      - "8081:8080"
+      - "8080:8080"
