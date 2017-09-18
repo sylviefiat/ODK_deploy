@@ -1,0 +1,21 @@
+version: '2'
+services:
+  aggregate:
+    image: tomcat:8.0 
+    command: [/tmp/init.sh]
+    volumes:
+      - ./aggregate_data/build:/tmp
+      - ./aggregate_data/webapps:/usr/local/tomcat/webapps
+      - ./aggregatedb_data/docker-entrypoint-initdb.d:/sql
+    environment:
+      - AGG_PATH=/tmp/aggregate
+      - AGG_HTTP=8080
+      - AGG_DB_PORT=5432
+      - AGG_IP=http://10.41.2.232
+      - AGG_CONTAINER_DB=aggregatedb
+      - AGG_DB_USER=docker
+      - AGG_DB_PWD=docker
+      - AGG_DB_NAME=aggregate
+      - AGG_DB_SCHEMA=odk_prod
+      - AGG_PROJECT=aggregate
+      - AGG_USERNAME=admin

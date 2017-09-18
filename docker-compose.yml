@@ -2,20 +2,17 @@ version: '2'
 services:
   aggregatedb:
     image: mdillon/postgis
-#    volumes:
-#      - ./aggregatedb_data/postgresql:/etc/postgresql
-    environment:
-      - POSTGRES_DB=aggregate
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=docker
+    volumes:
+      - ./aggregatedb_data/postgresql:/var/lib/postgresql
+      - ./aggregatedb_data/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+#      - ./aggregatedb_data/pg_hba.conf:/var/lib/postgresql/data/pg_hba.conf
     ports:
       - "5432:5432"
   aggregate:
-    image: odk_deploy 
+    image: tomcat:8.0
     volumes:
       - ./aggregate_data/webapps:/usr/local/tomcat/webapps
       - ./aggregate_data/logs:/usr/local/tomcat/logs
-      - ./aggregatedb_data/tmp:/tmp
     links:
       - aggregatedb
     ports:
