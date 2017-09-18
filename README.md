@@ -3,8 +3,26 @@
 Requis:
   - docker
   - docker-compose
-  
+
 Procédure d'installation :
+
+1. Cloner le répertoire git
+`git clone git@github.com:sylviefiat/ODK_deploy.git`
+
+2. Lancer le docker compose avec le fichier build:
+`docker-compose -f docker-compose.build.yml up`
+Cette commande va télécharger une image tomcat 8 et le script d'installation d'ODK Aggregate puis l'installer dans les répertoires de déploiement (aggregate_date et aggregatedb_data).
+Pour personnaliser l'installation, modifier les variables dans le fichier docker-compose.build.yml (noms utilisateurs, ip serveur, etc.)
+
+3. Lancer le docker compose up pour démarrer ODK Aggregate:
+`docker-compose up`
+Il y a des chances pour que la première fois le container tomcat ne trouve pas la connexion à la base de données car celle ci est entrain de s'installer, si c'est le cas arrêter et relancer un docker-compose:
+`docker-compose stop`
+`docker-compose up`
+
+4. visiter la page http://127.0.0.1:8080/ODKAggregate
+  
+Procédure d'installation sans utiliser le build fourni:
  
 1. Cloner le répertoire git 
 `git clone git@github.com:sylviefiat/ODK_deploy.git`
