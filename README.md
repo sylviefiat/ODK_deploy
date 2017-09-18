@@ -26,7 +26,7 @@ Il y a des chances pour que la première fois le container tomcat ne trouve pas 
 
 `docker-compose up`
 
-4. visiter la page http://127.0.0.1:8080/ODKAggregate
+4. visiter la page http://127.0.0.1:8080/ODKAggregate (le usernam est défini dans le docker-compose.build - admin par défaut - et mot de passe par défaut est aggregate)
 
 
   
