@@ -1,10 +1,10 @@
 # Projet Docker permettant de déployer une instance de ODK COLLECT avec tomcat8 et Postgres/Postgis sur Linux
 
-Requis:
+#### Requis: ####
   - docker
   - docker-compose
 
-Procédure d'installation :
+## Procédure d'installation : ##
 
 1. Cloner le répertoire git
 `git clone git@github.com:sylviefiat/ODK_deploy.git`
@@ -21,8 +21,11 @@ Il y a des chances pour que la première fois le container tomcat ne trouve pas 
 `docker-compose up`
 
 4. visiter la page http://127.0.0.1:8080/ODKAggregate
+
+
   
-Procédure d'installation sans utiliser le build fourni:
+## Procédure d'installation sans utiliser le build fourni: ##
+Si vous ne souhaitez pas utiliser le docker-compose.build, voici la procédure pour installer ODK Aggregate
  
 1. Cloner le répertoire git 
 `git clone git@github.com:sylviefiat/ODK_deploy.git`
