@@ -1,9 +1,9 @@
 #!/bin/bash
 
 cd /tmp
-#wget https://opendatakit.org/download/4456/
-#mv index.html ODK.run
-#chmod +x ODK.run
+wget https://opendatakit.org/download/4456/
+mv index.html ODK.run
+chmod +x ODK.run
 
 export COMMANDS='\n\n\n\n\n\n\n\n\ny\n'${AGG_PATH}'\n3\nn\nn\n1\nn\n'${AGG_HTTP}'\n'${AGG_IP}'\nn\n'${AGG_DB_PORT}'\n'${AGG_CONTAINER_DB}'\n'${OGG_DB_USER}'\n'${AGG_DB_PWD}'\n'${AGG_DB_PWD}'\n'${AGG_DB_NAME}'\n'${AGG_DB_SCHEMA}'\n'${AGG_PROJECT}'\n'${AGG_USERNAME}'\nY\nY\n'
 echo $COMMANDS
