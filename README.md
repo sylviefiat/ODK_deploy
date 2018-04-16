@@ -1,45 +1,45 @@
-# Projet Docker permettant de déployer une instance de ODK COLLECT avec tomcat8 et Postgres/Postgis sur Linux
+# Docker project used to deploy ODK AGGREGATE with tomcat8 and Postgres/Postgis on Linux server
 
-#### Requis: ####
+#### Required: ####
   - docker
   - docker-compose
 
-## Procédure d'installation : ##
+## Installation : ##
 
-1. Cloner le répertoire git
+1. Clone git repository
 
 `git clone git@github.com:sylviefiat/ODK_deploy.git`
 
-2. Lancer le docker compose avec le fichier build:
+2. Run build docker-compose :
 
 `docker-compose -f docker-compose.build.yml up`
 
-Cette commande va télécharger une image tomcat 8 et le script d'installation d'ODK Aggregate puis l'installer dans les répertoires de déploiement (aggregate_date et aggregatedb_data).
-Pour personnaliser l'installation, modifier les variables dans le fichier docker-compose.build.yml (noms utilisateurs, ip serveur, etc.)
+This command will download a tomcat8 image and an installation script for ODK Aggreagte, then it will install it in deploy repositories (aggregate_date et aggregatedb_data).
+In order to personnalize the installation, MODIFY the variables in docker-compose.build.yml file (user names, servers ip adresses, etc.)
 
-3. Lancer le docker compose up pour démarrer ODK Aggregate:
+3. Run docker compose in order to start ODK Aggregate:
 
 `docker-compose up`
-Il y a des chances pour que la première fois le container tomcat ne trouve pas la connexion à la base de données car celle ci est entrain de s'installer, si c'est le cas arrêter et relancer un docker-compose:
+The first run might end up with an error where tomcat8 cannot find postgres because the latest is still being installing, if it happens stop and restart the docker-compose:
 
 `docker-compose stop`
 
 `docker-compose up`
 
-4. visiter la page http://127.0.0.1:8080/ODKAggregate (le usernam est défini dans le docker-compose.build - admin par défaut - et mot de passe par défaut est aggregate)
+4. visit http://127.0.0.1:8080/ODKAggregate (username is defined in docker-compose.build - default is admin - and default password is aggregate - beware that you will not be able to change it later)
 
 
   
-## Procédure d'installation sans utiliser le build fourni: ##
-Si vous ne souhaitez pas utiliser le docker-compose.build, voici la procédure pour installer ODK Aggregate
+## Installation without the provided build: ##
+If you don't want to use the provided build but still use the docker-compose this is how to proceed :
  
-1. Cloner le répertoire git 
+1. Clone git repo
 
 `git clone git@github.com:sylviefiat/ODK_deploy.git`
 
-2. Télécharger la dernière version d'ODK Aggregate [ici](https://opendatakit.org/downloads/download-info/odk-aggregate-linux-x64-installer-run/) et le placer dans le répertoire ./ODK_deploy/tmp
+2. Download latest ODK Aggregate version [here](https://opendatakit.org/downloads/download-info/odk-aggregate-linux-x64-installer-run/) and place it in ./ODK_deploy/tmp
 
-3. Exécuter l'installateur
+3. Run install
 
 `cd ./ODK_deploy/tmp`
 
@@ -47,68 +47,69 @@ Si vous ne souhaitez pas utiliser le docker-compose.build, voici la procédure p
 
 `./ODK\ Aggregate\ v1.4.15\ linux-x64-installer.run`
  
- - Lire et accepter la licence, ensuite l'installation va demander de sélectionner le répertoire parent sous lequel 'ODk Aggregate' sera installé, comme on déplacera les fichiers généré, on peut le mettre dans un répertoire de tmp:
+ - Read and accept the licence, 
+ - the installation will ask for parent repository where 'ODk Aggregate' will be deployed, you can place it in tmp as we will move it later on:
  
  `[]:/path/to/ODK_deploy`
  
- - Ensuite, choisir l'option **3** pour sélectionner PostgreSQL.
+ - then, choose option **3** in order to select PostgreSQL.
  
- - Comme docker installera tomcat et Postgres, répondre non **n** aux demandes de téléchargement et installation de tomcat (2 fois).
+ - As docker will automatically install tomcat and Postgres, answer no **n** to the questions asking to install tomcat (2 fois).
  
- - Selon votre cas, sélectionner ou non le SSL (Non dans mon cas).
+ - Select or not SSL (depending on your configuration).
  
- - Accès à internet: ODK propose de configurer tomcat pour l'accès à internet, normalement l'installation de tomcat prend en charge donc répondre non.
+ - Internet access: ODK offers to configure tomcat access to internet, tomcat install should take care of this so you can answer no.
  
- - `HTTP Port: [8080]:` taper entrée pour valider le port **8080**
+ - `HTTP Port: [8080]:` enter to validate default entry **8080**
  
- - `HTTPS Port: [8443]:` taper entrée pour valider le port ou saisir votre port HTTPS (si vous avez sélectionné le SSL)
+ - `HTTPS Port: [8443]:` enter to validate default entry or enter HTTPS port (if you selected SSL)
  
- - `DNS name:` valider si l'url est bien celle de votre serveur sinon la saisir
+ - `DNS name:` valide  if the url is correct
  
- - installer postgres: mettre non
+ - installer postgres: no
  
- - `database number [5432]:` taper entrée
+ - `database number [5432]:` enter
  
- - `Database server hostname: [127.0.0.1]:` là il faut mettre le nom réseau du container de la base postgres, visible dans le docker-compose: **aggregatedb**
+ - `Database server hostname: [127.0.0.1]:` you need to enter **aggregatedb** which will be the docker server name of you postgresql instance (as specified in docker-compose)
  
- - `Database username: [odk_user]:` taper entrée pour utiliser ce nom ou saisir un autre nom
+ - `Database username: [odk_user]:` entrer to use this name or enter another username
  
- - `Database password:` saisir un mot de passe pour la bdd
+ - `Database password:` enter password for database
  
- - `Database Name: [odk_prod]:` taper entrée pour utiliser ce nom ou saisir un autre nom
+ - `Database Name: [odk_prod]:` enter to use default of enter a name for database name
  
- - `Database Schema Name: [odk_prod]:`taper entrée pour utiliser ce nom ou saisir un autre nom
+ - `Database Schema Name: [odk_prod]:`nter to use default of enter a name for database schema name
  
- - `Please enter the name of your instance: []:` saisir le nom de votre projet ou groupe ce nom sera visible par les utilisateurs
+ - `Please enter the name of your instance: []:` enter the name of your instance that will be visible to users
  
- - `Please enter an ODK Aggregate Username: []:` saisir un nom d'utilisateur **admin** par exemple
+ - `Please enter an ODK Aggregate Username: []:` enter admin username **admin** for example
  
  - `Do you want to continue? [Y/n]:` Y !
  
  - `Show additional deployment and
  configuration steps (5-10 minutes). [Y/n]:` **Y** (dans notre cas il n'y en a pas apparement)
 
-4. Aller dans le répertoire créé "ODK Aggregate" et déplacer le .war vers webapps:
+4. cd to "ODK Aggregate" repo and place the generated .war in webapps:
 
 `mv ODKAggregate.war ../aggregate_data/webapps/`
 
-5. déplacer le script de création postgres dans le répertoire de données postgres:
+5. move postgres creation script in postgres data repo:
 
 `mv create_db_and_user.sql ../aggregatedb_data/postgresql/`
 
-6. retourner dans le répertoire du projet et démarrer docker-compose
+6. go back to project repo and start docker-compose
 
 `docker-compose up -d`
 
-7. une fois les containers démarrés, faire tourner le script d'installation de la base de données
-  - soit en utilisant pgadmin
-  - sinon utiliser la commande
+7. uOnce the containers are started, run the database creation script
+  - using pgadmin OR
+  - using command line
   
   `cd aggregatedb_data`
   
   `docker exec -it odkdeploy_aggregatedb_1 psql -U postgres -f /etc/postgresql/create_db_and_user.sql`
   
-8. redémarrer docker-compose
+8. restart docker-compose
 
 `docker-compose stop`
 
