@@ -1,5 +1,4 @@
-ODK.run
-index.html
+./docker-compose.build.yml
 aggregate_data/data/*
 aggregate_data/logs/*
 aggregate_data/webapps/*

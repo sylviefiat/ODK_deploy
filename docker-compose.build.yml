@@ -11,7 +11,7 @@ services:
       - AGG_PATH=/tmp/aggregate
       - AGG_HTTP=8080
       - AGG_DB_PORT=5432
-      - AGG_IP=127.0.0.1
+      - AGG_IP=193.51.249.49
       - AGG_CONTAINER_DB=aggregatedb
       - AGG_DB_USER=docker
       - AGG_DB_PWD=docker
