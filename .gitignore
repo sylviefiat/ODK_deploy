@@ -3,4 +3,3 @@ aggregate_data/data/*
 aggregate_data/logs/*
 aggregate_data/webapps/*
 aggregatedb_data/*
-aggregaterest_data/*

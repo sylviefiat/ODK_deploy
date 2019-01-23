@@ -25,31 +25,6 @@ services:
     depends_on:
       - aggregatedb
 
-  aggregaterest:
-    hostname: aggregaterest
-    image: prest/prest
-    volumes:
-      - ./aggregaterest_data/prest.toml:/prest.toml
-    links:
-       - "aggregatedb:aggregatedb"
-    ports:
-      - "3000:3000"
-    networks:
-      - aggregate-network
-    environment:
-      - PREST_HTTP_PORT=3000
-      - PREST_DEBUG=false # remove comment for enable DEBUG mode (disable JWT)
-      - PREST_PG_HOST=193.51.249.49
-      - PREST_PG_USER=odk_user
-      - PREST_PG_PASS=docker
-      - PREST_PG_DATABASE=aggregate
-      - PREST_PG_PORT=5432
-      - PREST_JWT_DEFAULT=false # remove if need jwt
-      - PREST_JWT_KEY=secret
-      - PREST_JWT_ALGO=HS256
-    depends_on:
-      - aggregatedb
-
 networks:
   aggregate-network:
     driver: bridge
