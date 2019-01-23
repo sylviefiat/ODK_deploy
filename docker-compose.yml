@@ -8,6 +8,8 @@ services:
 #      - ./aggregatedb_data/pg_hba.conf:/var/lib/postgresql/data/pg_hba.conf
     ports:
       - "5432:5432"
+    networks:
+      - aggregate-network
 
   aggregate:
     image: tomcat:8.0
@@ -15,27 +17,29 @@ services:
       - ./aggregate_data/webapps:/usr/local/tomcat/webapps
       - ./aggregate_data/logs:/usr/local/tomcat/logs
     links:
-      - aggregatedb
+      - "aggregatedb:aggregatedb"
     ports:
       - "8080:8080"
     networks:
       - aggregate-network
+    depends_on:
+      - aggregatedb
 
   aggregaterest:
     hostname: aggregaterest
     image: prest/prest
-#    volumes:
-#      - ./aggregaterest_data/prest.toml:/prest.toml
+    volumes:
+      - ./aggregaterest_data/prest.toml:/prest.toml
     links:
        - "aggregatedb:aggregatedb"
     ports:
-      - "3001:3000"
+      - "3000:3000"
     networks:
       - aggregate-network
     environment:
       - PREST_HTTP_PORT=3000
       - PREST_DEBUG=false # remove comment for enable DEBUG mode (disable JWT)
-      - PREST_PG_HOST=10.41.2.232
+      - PREST_PG_HOST=193.51.249.49
       - PREST_PG_USER=odk_user
       - PREST_PG_PASS=docker
       - PREST_PG_DATABASE=aggregate
