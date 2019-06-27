@@ -10,6 +10,10 @@
 
 `git clone git@github.com:sylviefiat/ODK_deploy.git`
 
+1-bis. Go into repo
+
+`cd ODK_deploy`
+
 2. Run build docker-compose :
 
 `docker-compose -f docker-compose.build.yml up`
