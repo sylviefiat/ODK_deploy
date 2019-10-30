@@ -1,4 +1,4 @@
-# Docker project used to deploy ODK AGGREGATE with tomcat8 and Postgres/Postgis on Linux server
+# Docker project used to deploy ODK AGGREGATE with tomcat8 and Postgres/Postgis on Linux server => projet déplacé gitlab in2p3 30/102019
 
 #### Required: ####
   - docker
